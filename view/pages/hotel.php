@@ -16,14 +16,24 @@ catch(Exception $e)
 
 require('../../model/HotelManager.php');
 require('../../model/ReservationManager.php');
+require('../../controller/Reservation.php');
+require('../../controller/Hotel.php');
 
 $id = $_GET['id'];
 
 $manager = new HotelManager($db);
 $hotel = $manager->getHotel($id);
 
-$reservation = new ReservationManager($db);
-$type_list = $reservation->getTypes();
+$reservationManager = new ReservationManager($db);
+$type_list = $reservationManager->getTypes();
+
+$reservation = new Reservation();
+
+$dates = new Hotel();
+$dates_list = $dates->displayDateList();
+
+//$today = $reservation->getToday();
+//$frenchDates = $reservation->displayDateList();
 ?>
 
 <div class="row">
@@ -44,8 +54,8 @@ $type_list = $reservation->getTypes();
 	</div>
 	<div class="col-xs-12 col-sm-6 pull-left">
 		<h2>Réservation</h2>
-		<form>
-			<input type="hidden" class="form-control" id="booking_date" value="<?php echo date("d-F-Y");?>">
+		<form action="hotel.php" method="post">
+			
 			<input type="hidden" class="form-control" id="hotel_id" value="<?php echo $hotel[0]['id']; ?>">
 			<div class="form-group">
 		    	<label for="nom">Nom</label>
@@ -60,24 +70,32 @@ $type_list = $reservation->getTypes();
 		    	<input type="email" class="form-control" id="email" placeholder="Email">
 		  	</div>
 		  	<div class="form-group">
-			    <label for="exampleInputPassword1">Password</label>
-			    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
-			</div>
-			<div class="form-group">
-			    <label for="exampleInputFile">Type de Chambre</label>
-			    <select id="exampleInputFile">
+			    <label for="type">Type de Chambre</label>
+			    <select class="form-control" id="type">
 			    	<?php foreach ($type_list as $type):?>
 			    		<option name="type" value="<?php echo $type['id'];?>"><?php echo $type['type'];?></option>
 			    	<?php endforeach;?>
 			    <p class="help-block">Example block-level help text here.</p>
 				</select>
 			</div>
-			<div class="checkbox">
-			    <label>
-			      <input type="checkbox"> Check me out
-			</label>
+			<div class="form-group col-sm-6 pull-left">
+			    <label for="type">Date d'arrivée</label>
+			    <select class="form-control" id="booking_date_start">
+			    	<?php foreach ($dates_list as $date):?>
+			    		<option name="type" value="<?php echo $date;?>"><?php echo $date;?></option>
+			    	<?php endforeach;?>
+				</select>
 			</div>
-			<button type="submit" class="btn btn-default">Réserver</button>
+			<div class="form-group col-sm-6 pull-right">
+			    <label for="type">Date de départ</label>
+			    <select class="form-control" id="booking_date_end">
+			    	<?php foreach ($dates_list as $date):?>
+			    		<option name="type" value="<?php echo $date;?>"><?php echo $date;?></option>
+			    	<?php endforeach;?>
+				</select>
+			</div>
+			<div class="clearfix"></div>
+			<button type="submit" class="btn btn-default pull-right">Réserver</button>
 		</form>
 	</div>
 </div>
