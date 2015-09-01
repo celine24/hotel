@@ -1,23 +1,26 @@
 <?php require_once('../header.php');
 
-//gestion des erreurs lors de la connexion à la base de données
-try
-{
-	//instanciation de PDO
-	$db = new PDO('mysql:host=localhost;dbname=booking', 'root', '');
-	$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);
-	$db->exec("SET NAMES 'UTF8'");
-}
-catch(Exception $e)
-{
-	echo 'Echec lors de la connexion : ' . $e->getMessage() . '<br>';
-	exit;
-}
-
-require('../../model/HotelManager.php');
-
 $manager = new HotelManager($db);
 $hotels_list = $manager->getHotel();
+
+$reservationManager = new ReservationManager($db);
+
+$dates = new Hotel();
+$dates_list = $dates->dateList();
+$french_dates = $dates->frenchDateList();
+
+if(isset($_POST['reserve'])) {
+	$reservation = new Reservation(
+		[
+	      'client_id' => $_POST['client_id'],
+	      'hotel_id' => $_POST['hotel_id'],
+	      'booking_date_start' => $_POST['booking_date_start'],
+	      'booking_date_end' => $_POST['booking_date_end'],
+    	]
+	);
+	$reservationManager->addReservation($reservation);
+	var_dump ($reservation);
+}
 
 foreach($hotels_list as $hotel):?>
 
@@ -31,14 +34,12 @@ foreach($hotels_list as $hotel):?>
 	    <div class="panel-body">
 	    	<img src="<?php echo $hotel['picture']; ?>" alt="" class="col-xs-12 col-sm-3 pull-left thumbnail" />
 		    <blockquote class="col-xs-12 col-sm-9 pull-right">“ <?php echo $hotel['description']; ?> ”</blockquote>
-			<address class="text-center col-xs-12 col-md-7">
+			<address class="text-center col-xs-12 col-md-2">
 				<strong><?php echo 'Hotel ' . $hotel['name']; ?></strong><br>
 				<?php echo $hotel['adress']; ?><br>
 				<?php echo $hotel['postcode'] . ' ' . $hotel['city_name']; ?><br>
 			</address>
-		    <div class="col-xs-12 col-md-1 text-center">
-		    	<a class="btn btn-info btn-lg" href="hotel.php?id=<?php echo $hotel['id']; ?>" role="button">Réserver</a>
-		    </div>
+		    <?php require('booking_form.php');?>
 		</div>
 	
 	</div>

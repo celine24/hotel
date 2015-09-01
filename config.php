@@ -1,4 +1,13 @@
 <?php
+
+define('DIR_WWW' , 'hotel/');
+define('DIR_PROCESS' , DIR_WWW . 'process/');
+
+
+
+
+
+
 //Permet de configurer l'accès à la BDD
 
 return array(

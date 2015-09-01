@@ -1,20 +1,7 @@
 <?php require_once('../header.php');
 
-//gestion des erreurs lors de la connexion à la base de données
-try
-{
-	//instanciation de PDO
-	$db = new PDO('mysql:host=localhost;dbname=booking', 'root', '');
-	$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);
-	$db->exec("SET NAMES 'UTF8'");
-}
-catch(Exception $e)
-{
-	echo 'Echec lors de la connexion : ' . $e->getMessage() . '<br>';
-	exit;
-}
+//$user_session->logout();
 
-require('../../model/HotelManager.php');
 
 $manager = new HotelManager($db);
 $HLhotels_list = $manager->getHLHotels();
