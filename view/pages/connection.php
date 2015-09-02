@@ -18,9 +18,9 @@ require_once('../../process/process_registration_connection.php');
 						</p>
 					<?php endif ?>
 
-					<?php if(isset($_SESSION['user'])){
+					<?php //if(isset($_SESSION['user'])){
 
-					var_dump($_SESSION['user']);} ?>
+					//var_dump($_SESSION['user']);} ?>
 				 
 					<form action="" method="post">
 						<div class="form-group">

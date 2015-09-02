@@ -62,7 +62,7 @@ class RegistrationManager {
 				        $_SESSION['user']['lastname'] = $result[0]['lastname'],
 				        $_SESSION['user']['firstname'] = $result[0]['firstname'],
 				        $_SESSION['user']['email'] = $result[0]['email'],
-				        $connected = true
+				        $_SESSION['user']['connected'] = true
                 	]
                 );
 				return true;

@@ -21,9 +21,12 @@ require_once '../../autoloader.php';
 
 //appel des session pour gérer la connexion des utilisateurs
 session_start();
-//$user_session = new Session ();
-//var_dump($user_session);
 
+
+$user_session = new Session();
+var_dump($user_session);
+//$_SESSION['user'] = $user_session;
+//$client = $_SESSION['user'];
 
 ?>
 
@@ -69,12 +72,12 @@ session_start();
         </div>
         <div id="navbar" class="collapse navbar-collapse pull-right">
           <ul class="nav navbar-nav">
-            <?php //if($user_session->isConnected()) : ?>
+            <?php if($user_session->isConnected()) : ?>
             <li><a href="index.php?log=false">Déconnexion</a></li>
-            <?php //else :?>
+            <?php else :?>
               <li><a href="connection.php">S'identifier</a></li>
               <li><a href="registration.php">S'enregistrer</a></li>
-            <?php //endif; ?>
+            <?php endif; ?>
           </ul>
         </div>
       </div>

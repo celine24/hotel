@@ -40,22 +40,22 @@ if (isset($_POST['connection']))
 
 
 	//on fait appel à la méthode de connexion si l'utilisateur n'est pas déjà connecté
-	//if($user_session->isConnected()) 
-	//{
-	//	$error_msg =  'Vous êtes déjà authentifié.';
-	//}
-	//else 
-	//{
-	//	$user_connection = $registrationManager->login($connection);
+	if($user_session->isConnected()) 
+	{
+		$error_msg =  'Vous êtes déjà authentifié.';
+	}
+	else 
+	{
+		$user_connection = $registrationManager->login($connection);
 
-	//	//si la connexion a réussi : 
-	//	if ($user_connection === true) 
-	//	{
-			//header('Location: index.php');
-	//	}
-	//	else
-	//	{
-	//		$error_msg = 'Une erreur est survenue. Vous n\'avez pas été authentifié.';
-	//	}
-	//}
+	//si la connexion a réussi : 
+		if ($user_connection === true) 
+		{
+			header('Location: index.php');
+		}
+		else
+		{
+			$error_msg = 'Une erreur est survenue. Vous n\'avez pas été authentifié.';
+		}
+	}
 }
