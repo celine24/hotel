@@ -9,9 +9,9 @@ class HotelManager {
 		$this->setDb($db);
 	}
 
-	public function setDb (PDO $dbh)
+	public function setDb (PDO $db)
 	{
-		$this->_db = $dbh;
+		$this->_db = $db;
 	}
 
 	public function getHLHotels() // pour récupérer la liste des hotels mis en avant (en page d'accueil)

@@ -1,7 +1,5 @@
 <?php header('Content-type: text/html; charset=UTF-8');
 
-
-
 //connexion à la base de données + gestion des erreurs éventuelles
 try
 {
@@ -25,9 +23,6 @@ session_start();
 
 $user_session = new Session();
 var_dump($user_session);
-//$_SESSION['user'] = $user_session;
-//$client = $_SESSION['user'];
-
 ?>
 
 <!DOCTYPE html>

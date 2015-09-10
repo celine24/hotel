@@ -11,12 +11,11 @@ class Reservation {
 	/**	
 	* Constantes relatives aux erreurs possibles rencontrées lors de l'exécution de la méthode.
 	*/
-	const INVALID_CLIENT_ID = 1;
-	const INVALID_HOTEL_ID = 2;
-	const INVALID_ROOM_ID = 3;
-	const INVALID_BOOKING_DATE_START = 4;	
-	const INVALID_BOOKING_DATE_END = 5;
-	const INVALID_BOOKING_DATES = 6;
+	const INVALID_CLIENT_ID = 'Le client n\'a pas été reconnu.';
+	const INVALID_HOTEL_ID = 'L\'hôtel dans lequel vous souhaitez réserver n\'existe pas.';
+	const INVALID_BOOKING_DATE_START = 'La date d\'arrivée est invalide.';	
+	const INVALID_BOOKING_DATE_END = 'La date de départ est invalide.';
+	const INVALID_BOOKING_DATES = 'La date de votre départ doit être supérieure à la date de votre arrivée.';
 
 	public function __construct(array $data) 
 	{	
@@ -37,7 +36,7 @@ class Reservation {
 
 	public function setClientId($client_id)
     {		   
-		if (((!is_int($client_id)) AND ($client_id < 0)) OR empty($client_id))
+		if ((!is_int($client_id)) AND ($client_id < 0))
 		{
 			$this->_errors[] = self::INVALID_CLIENT_ID;
 		}
@@ -49,7 +48,7 @@ class Reservation {
 
 	public function setHotelId($hotel_id)
     {		   
-		if (((!is_int($hotel_id)) AND ($hotel_id < 0)) OR empty($hotel_id))
+		if ((!is_int($hotel_id)) AND ($hotel_id < 0))
 		{
 			$this->_errors[] = self::INVALID_HOTEL_ID;
 		}
@@ -65,7 +64,7 @@ class Reservation {
 		$english_month = $this->dateConvert($month);
 		if (!checkdate($english_month, $day, $year)) 
 		{
-			$this->erreurs[] = self::INVALID_BOOKING_DATE_START;
+			$this->_errors[] = self::INVALID_BOOKING_DATE_START;
 		}
 		else
 		{
@@ -80,7 +79,7 @@ class Reservation {
 		$fig_month = $this->dateConvert($month); // convertit le mois français en chiffre
 		if (!checkdate($fig_month, $day, $year)) // vérifie que la date est au bon format
 		{
-			$this->erreurs[] = self::INVALID_BOOKING_DATE_END;
+			$this->_errors[] = self::INVALID_BOOKING_DATE_END;
 		}
 		else
 		{
@@ -88,7 +87,7 @@ class Reservation {
 			$booking_date_start = $this->getBookingDateStart();
 			if ($booking_date_start >= $booking_date_end) // vérifie que la date de départ est bien supérieure à la date d'arrivée
 			{
-				$this->erreurs[] = self::INVALID_BOOKING_DATES;
+				$this->_errors[] = self::INVALID_BOOKING_DATES;
 			}
 			else
 			{
@@ -96,7 +95,6 @@ class Reservation {
 			}
 		}
 	}
-
 	
 	/**	
 	* GETTERS - pour récupérer la valeur des attributs
@@ -181,16 +179,17 @@ class Reservation {
 	}	
 
 	/**
-	* Méthode permettant de savoir si la news est valide.
+	* Méthode permettant de savoir si la réservation est valide.
 	* @return bool
 	*/
 	public function isValid()
 	{
-		return !(empty($this->auteur) || empty($this->titre) || empty($this->contenu));
+		return !(
+			empty($this->_client_id) || 
+			empty($this->_hotel_id) || 
+			empty($this->_booking_date_start) || 
+			empty($this->_booking_date_end)
+		);
 	}
-
-
-
-
 
 }

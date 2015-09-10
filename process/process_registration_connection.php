@@ -51,7 +51,8 @@ if (isset($_POST['connection']))
 	//si la connexion a réussi : 
 		if ($user_connection === true) 
 		{
-			header('Location: index.php');
+			$success_msg = 'Vous avez bien été authentifié :) Vous pouvez désormais réserver dans l\'hôtel de vos rêves !';
+			//header('Location: index.php');
 		}
 		else
 		{

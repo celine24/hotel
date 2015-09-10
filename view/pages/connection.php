@@ -1,13 +1,16 @@
 <?php 
 require_once('../header.php');
 require_once('../../process/process_registration_connection.php');
-
-
-
 ?>
 
 <div class="row">
 	<div class="col-md-offset-2 col-md-8">
+
+		<?php if (isset ($success_msg)): ?> 
+			<p class="msg bg-success text-success">
+				<?php echo $success_msg;?>
+			</p>
+		<?php else :?>
 		<div class="panel panel-default">
 			<div class="panel-heading"><h2>Se connecter</h2></div>
 				<div class="panel-body">
@@ -39,6 +42,7 @@ require_once('../../process/process_registration_connection.php');
 				</div>
 			</div>
 		</div>
+		<?php endif;?>
 	</div>
 </div>
 
