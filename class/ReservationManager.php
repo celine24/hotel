@@ -2,31 +2,43 @@
 
 class ReservationManager {
 
-	private $_db; //instance de PDO
+	private 
+	$_errors = [],
+	$_db; //instance de PDO
+
+	/**	
+	* Constantes relatives aux erreurs possibles rencontrées lors de l'exécution de la méthode.
+	*/
+	const INVALID_ROOM_ID = 'Nous sommes désolés, il n\'a plus de chambres disponibles dans cet hôtel pour la période demandée.';
 
 	public function __construct($db)
 	{
 		$this->setDb($db);
 	}
 
-	public function setDb (PDO $db)
+	public function setDb(PDO $db)
 	{
 		$this->_db = $db;
 	}
 
 	public function addReservation(Reservation $reservation) 
 	{
-		$sql = 'INSERT INTO reservations SET client_id = :client_id, hotel_id = :hotel_id, booking_date = NOW(), booking_date_start = :booking_date_start, booking_date_end = :booking_date_end, room_id = :room_id';
-		$stmnt = $this->_db->prepare($sql);
-		$stmnt->bindValue(':client_id', $reservation->getClientId());
-	    $stmnt->bindValue(':hotel_id', $reservation->getHotelId());
-	    $stmnt->bindValue(':booking_date_start', $reservation->getBookingDateStart());
-	    $stmnt->bindValue(':booking_date_end', $reservation->getBookingDateEnd());
-	    $stmnt->bindValue(':room_id', $this->addRoom($reservation));
-	    if ($stmnt->execute())
-	    {
-	    	return true;
-	    }
+		$room_id = $this->addRoom($reservation);
+		if (isset($room_id))
+		{
+
+			$sql = 'INSERT INTO reservations SET client_id = :client_id, hotel_id = :hotel_id, booking_date = NOW(), booking_date_start = :booking_date_start, booking_date_end = :booking_date_end, room_id = :room_id';
+			$stmnt = $this->_db->prepare($sql);
+			$stmnt->bindValue(':client_id', $reservation->getClientId());
+		    $stmnt->bindValue(':hotel_id', $reservation->getHotelId());
+		    $stmnt->bindValue(':booking_date_start', $reservation->getBookingDateStart());
+		    $stmnt->bindValue(':booking_date_end', $reservation->getBookingDateEnd());
+		    $stmnt->bindValue(':room_id', $this->addRoom($reservation));
+		    if ($stmnt->execute())
+		    {
+		    	return true;
+		    }
+		}
 	}
 
 	//retourne la liste des réservations pour un même hotel
@@ -69,7 +81,7 @@ class ReservationManager {
 				return $room_id;
 			}
 			//sinon, c'est que l'hotel est complet
-			return false;
+			$this->_errors[] = self::INVALID_ROOM_ID;
 		}
 		//s'il n'y a aucune chambre réservée pour l'hotel :
 		else
@@ -87,5 +99,10 @@ class ReservationManager {
 		$hotel_rooms = $hotel->getHotel($hotel_id);
 		$rooms = $hotel_rooms[0]['number_rooms'];
 		return $rooms;
+	}
+
+	public function getErrors()
+	{
+		return $this->_errors;
 	}
 }

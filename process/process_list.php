@@ -34,7 +34,7 @@ if(isset($_POST['reserve'])) {
 		else 
 		{
 			$error_msg = 'Une erreur est survenue. Votre réservation n\'a pas été enregistrée.';
-			$errors = $reservation->getErrors();
+			$errors = $reservationManager->getErrors();
 		}
 	}
 	else 
