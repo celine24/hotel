@@ -45,7 +45,7 @@ class ReservationManager {
 	//retourne la liste des réservations pour un même hotel
 	public function getList(Reservation $reservation) 
 	{
-		$sql = 'SELECT hotel_id, booking_date_start, booking_date_end, room_id FROM reservations WHERE hotel_id = :hotel_id';
+		$sql = 'SELECT hotel_id, booking_date, booking_date_start, booking_date_end, room_id FROM reservations WHERE hotel_id = :hotel_id';
 		$stmnt = $this->_db->prepare($sql);
 	    $stmnt->bindValue(':hotel_id', $reservation->getHotelId());
 	    $stmnt->execute(); 
@@ -93,34 +93,44 @@ class ReservationManager {
 				$saved_room_id = $test_reservation['room_id'];
 				$saved_date_start = $test_reservation['booking_date_start'];
 				$saved_date_end = $test_reservation['booking_date_end'];
-
 				//tant que la date de début de réservation demandée est inférieure à la date de fin d'une réservation enregistrée
-				if (($date_start < $saved_date_end) ) //AND ($room_id = $room)
+				if ($date_start < $saved_date_end)
 				{
-					$unavailable_rooms[] = $saved_room_id;
-				}	
+					if($date_end > $saved_date_start)
+					{
+						$unavailable_rooms[] = $saved_room_id;
+					}
+					
+				}		
 			}
-
-			$i = 0;
-			while ($i < $rooms)
+			if (!empty($unavailable_rooms))
 			{
-				$i++;
-				$nbr_rooms[] = $i;
-			}
+				$i = 0;
+				while ($i < $rooms)
+				{
+					$i++;
+					$nbr_rooms[] = $i;
+				}
 
-			$available_rooms = array_diff($nbr_rooms, $unavailable_rooms);
-
-			var_dump($available_rooms);
-			if (isset($available_rooms))
-			{
-				$room_id = current($available_rooms);
-				return $room_id;	
+				$available_rooms = array_diff($nbr_rooms, $unavailable_rooms);
+				
+				if (!empty($available_rooms))
+				{
+					$room_id = current($available_rooms);
+					return $room_id;	
+				}
+				else
+				{
+					//si toujours aucune chambre libre on retourne l'erreur : 
+					$this->_errors[] = self::INVALID_ROOM_ID;
+				}
 			}
 			else
 			{
-				//si toujours aucune chambre libre on retourne l'erreur : 
-				$this->_errors[] = self::INVALID_ROOM_ID;
+				$room_id = 1;
+				return $room_id;
 			}
+			
 		}
 		//s'il n'y a aucune chambre réservée pour l'hotel :
 		else
