@@ -20,9 +20,7 @@ require_once '../../autoloader.php';
 //appel des session pour gérer la connexion des utilisateurs
 session_start();
 
-
 $user_session = new Session();
-var_dump($user_session);
 ?>
 
 <!DOCTYPE html>

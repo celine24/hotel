@@ -13,11 +13,10 @@ class Registration {
 	/**	
 	* Constantes relatives aux erreurs possibles rencontrées lors de l'exécution de la méthode.
 	*/
-	const INVALID_LASTNAME = 1;
-	const INVALID_FIRSTNAME = 2;
-	const INVALID_EMAIL = 3;
-	const INVALID_USERNAME = 4;	
-	const INVALID_PASSWORD = 5;
+	const INVALID_LASTNAME = 'Le nom de famille est invalide.';
+	const INVALID_FIRSTNAME = 'Le prénom est invalide.';
+	const INVALID_EMAIL = 'L\'adresse email est invalide.';
+	const INVALID_PASSWORD = 'Le mot de passe est invalide.';
 
 	public function __construct(array $data) 
 	{	
@@ -38,7 +37,7 @@ class Registration {
 
 	public function setLastName($lastname)
     {		   
-		if (!is_string($lastname))
+		if ((!is_string($lastname)) OR (!preg_match("/^[a-z ,.'-]+$/i", $lastname)))
 		{
 			$this->_errors[] = self::INVALID_LASTNAME;
 		}
@@ -50,7 +49,7 @@ class Registration {
 
 	public function setFirstname($firstname)
     {		   
-		if (!is_string($firstname))
+		if ((!is_string($firstname)) OR (!preg_match("/^[a-z ,.'-]+$/i", $firstname)))
 		{
 			$this->_errors[] = self::INVALID_FIRSTNAME;
 		}

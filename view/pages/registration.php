@@ -5,6 +5,13 @@ require_once('../../process/process_registration_connection.php');
 
 <div class="row">
 	<div class="col-md-offset-2 col-md-8">
+
+		<?php if (isset ($success_msg)): ?> 
+			<p class="msg bg-success text-success">
+				<?php echo $success_msg;?>
+			</p>
+		<?php else :?>
+
 		<div class="panel panel-default">
 			<div class="panel-heading"><h2>S'enregistrer</h2></div>
 				<div class="panel-body">
@@ -12,6 +19,13 @@ require_once('../../process/process_registration_connection.php');
 					<?php if (isset($error_msg)) :?>
 						<p class="msg bg-danger text-danger">
 							<?php echo $error_msg; ?>
+							<?php if (isset($errors)) :?>
+							<ul class="text-danger">
+							<?php foreach ($errors as $error) :?>
+								<li><?php echo $error; ?></li>
+							<?php endforeach;?>
+							</ul>
+							<?php endif ?>
 						</p>
 					<?php endif ?>
 				 
@@ -40,6 +54,7 @@ require_once('../../process/process_registration_connection.php');
 				</div>
 			</div>
 		</div>
+		<?php endif;?>
 	</div>
 </div>
 

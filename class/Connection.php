@@ -11,8 +11,8 @@ class Connection {
 	/**	
 	* Constantes relatives aux erreurs possibles rencontrées lors de l'exécution de la méthode.
 	*/
-	const INVALID_EMAIL = 1;	
-	const INVALID_PASSWORD = 2;
+	const INVALID_EMAIL = 'L\'email est invalide.';	
+	const INVALID_PASSWORD = 'Le mot de passe est invalide.';
 
 	public function __construct(array $data) 
 	{	
@@ -26,7 +26,7 @@ class Connection {
 
 	public function setEmail($email) 
 	{
-		if ((!is_string($email)) AND (!preg_match("#^[a-z0-9._-]+@[a-z0-9._-]{2,}\.[a-z]{2,4}$#", $email)))
+		if ((!is_string($email)) OR (!preg_match("#^[a-z0-9._-]+@[a-z0-9._-]{2,}\.[a-z]{2,4}$#", $email)))
 		{
 			$this->_errors[] = self::INVALID_EMAIL;
 		}

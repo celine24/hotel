@@ -11,6 +11,7 @@ require_once('../../process/process_registration_connection.php');
 				<?php echo $success_msg;?>
 			</p>
 		<?php else :?>
+		
 		<div class="panel panel-default">
 			<div class="panel-heading"><h2>Se connecter</h2></div>
 				<div class="panel-body">
@@ -18,12 +19,15 @@ require_once('../../process/process_registration_connection.php');
 					<?php if (isset($error_msg)) :?>
 						<p class="msg bg-danger text-danger">
 							<?php echo $error_msg; ?>
+							<?php if (isset($errors)) :?>
+							<ul class="text-danger">
+							<?php foreach ($errors as $error) :?>
+								<li><?php echo $error; ?></li>
+							<?php endforeach;?>
+							</ul>
+							<?php endif ?>
 						</p>
 					<?php endif ?>
-
-					<?php //if(isset($_SESSION['user'])){
-
-					//var_dump($_SESSION['user']);} ?>
 				 
 					<form action="" method="post">
 						<div class="form-group">
