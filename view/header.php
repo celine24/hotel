@@ -35,13 +35,15 @@ $user_session = new Session();
 
     <title>Hotel Booking</title>
 
-    <link href="../bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../css/bootstrap/bootstrap.min.css" rel="stylesheet">
     <link href="../css/custom-hotel-template.css" rel="stylesheet">
+    <link href="../css/jquery.bxslider.css" rel="stylesheet">
 
     <!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
       <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
+
   </head>
 
   <body>
@@ -55,12 +57,12 @@ $user_session = new Session();
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="#">Hôtels Français</a>
+          <span class="navbar-brand">Hôtels Français</span>
         </div>
         <div id="navbar" class="collapse navbar-collapse pull-left">
           <ul class="nav navbar-nav">
-            <li class="active"><a href="index.php">Accueil</a></li>
-            <li><a href="list.php">Nos Hôtels</a></li>
+            <li <?php if ($_SERVER['SCRIPT_NAME'] == "/hotel/view/pages/index.php") {echo "class='active'";} ?>><a href="index.php">Accueil</a></li>
+            <li <?php if ($_SERVER['SCRIPT_NAME'] == "/hotel/view/pages/list.php") {echo "class='active'";} ?>><a href="list.php">Nos Hôtels</a></li>
           </ul>
         </div>
         <div id="navbar" class="collapse navbar-collapse pull-right">
@@ -77,10 +79,3 @@ $user_session = new Session();
     </nav>
 
     <div class="container">
-
-      
-
-    
-
-
-    

@@ -1,11 +1,17 @@
 		</div><!-- /.container -->
 
-<!-- Bootstrap core JavaScript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <script src="../../dist/js/bootstrap.min.js"></script>
-    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-    <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>
+    <!-- jQuery library (served from Google) -->
+    <script src="../js/jquery-1.9.1.min.js"></script>
+    <!-- bxSlider Javascript file -->
+    <script src="../js/jquery.bxslider.min.js"></script>
+    <!-- bxSlider CSS file -->
+    <link href="../js/jquery.bxslider.css" rel="stylesheet" />
+
+    <script>
+        $(document).ready(function(){
+            $('.bxslider').bxSlider();
+        });
+    </script>
+
   </body>
 </html>

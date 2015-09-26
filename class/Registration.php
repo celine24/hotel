@@ -29,7 +29,6 @@ class Registration {
 	/**	
 	* SETTERS
 	*/
-
 	public function setId($id)
 	{
 		$this->_id = (int) $id;
@@ -87,7 +86,6 @@ class Registration {
 	/**	
 	* GETTERS - pour récupérer la valeur des attributs
 	*/ 
-
 	public function getErrors()
 	{
 		return $this->_errors;
@@ -112,7 +110,5 @@ class Registration {
     {
       return $this->_password;
     }
-
-
 
 }

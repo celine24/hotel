@@ -26,7 +26,7 @@ require_once('../../process/process_list.php');
 </div>
 
 <?php foreach($hotels_list as $hotel):?>
-<div class="row">
+<div class="row" id="<?php echo $hotel['id']; ?>">
 	<div class="panel panel-default">
 		<div class="panel-heading">
 		 	<h2><?php echo $hotel['name']; ?>

@@ -23,7 +23,6 @@ class Connection {
 	/**	
 	* SETTERS
 	*/
-
 	public function setEmail($email) 
 	{
 		if ((!is_string($email)) OR (!preg_match("#^[a-z0-9._-]+@[a-z0-9._-]{2,}\.[a-z]{2,4}$#", $email)))
@@ -52,7 +51,6 @@ class Connection {
 	/**	
 	* GETTERS - pour récupérer la valeur des attributs
 	*/ 
-
 	public function getErrors()
 	{
 		return $this->_errors;
@@ -67,7 +65,5 @@ class Connection {
     {
       return $this->_password;
     }
-
-
 
 }

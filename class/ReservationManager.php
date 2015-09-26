@@ -71,8 +71,6 @@ class ReservationManager {
 			foreach ($list as $saved_reservation)
 			{
 				$results[] = $saved_reservation['room_id'];
-				
-				//$saved_results[] = $saved_reservation;
 			}
 			//on prend l'id maximum et on lui ajoute 1 pour générer le nouvel id
 			$room_id = max($results) + 1;
@@ -84,8 +82,8 @@ class ReservationManager {
 			{
 				return $room_id;
 			}
+
 			//et si toutes les chambres de l'hotel ont été attribuées, on vérifie lesquelles sont libres en fonction des dates
-			
 			$date_start = $reservation->getBookingDateStart();
 			$date_end = $reservation->getBookingDateEnd();	
 			foreach ($list as $test_reservation)
@@ -93,29 +91,36 @@ class ReservationManager {
 				$saved_room_id = $test_reservation['room_id'];
 				$saved_date_start = $test_reservation['booking_date_start'];
 				$saved_date_end = $test_reservation['booking_date_end'];
-				//tant que la date de début de réservation demandée est inférieure à la date de fin d'une réservation enregistrée
+
+				//si la date d'arrivée demandée est inférieure à la date de départ d'une réservation enregistrée
 				if ($date_start < $saved_date_end)
 				{
+					//si la date de départ demandée est supérieure à la date d'arrivée d'une réservation enregistrée
 					if($date_end > $saved_date_start)
 					{
+						//on récupère les chambres indisponibles grâce au room_id 
 						$unavailable_rooms[] = $saved_room_id;
 					}
-					
 				}		
 			}
+			//s'il y a bien 1 ou des chambre(s) indisponible(s)
 			if (!empty($unavailable_rooms))
 			{
 				$i = 0;
+				//tant que $i est inférieur au nombre total de chambres
 				while ($i < $rooms)
 				{
 					$i++;
 					$nbr_rooms[] = $i;
 				}
 
+				//sur toutes les chambres de l'hotel, on retire les chambres indisponibles pour ne garder que les disponibles
 				$available_rooms = array_diff($nbr_rooms, $unavailable_rooms);
 				
+				//s'il y a au moins 1 chambre disponible
 				if (!empty($available_rooms))
 				{
+					//on retourne l'id de la première chambre du tableau
 					$room_id = current($available_rooms);
 					return $room_id;	
 				}

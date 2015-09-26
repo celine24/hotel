@@ -28,7 +28,6 @@ class Reservation {
 	/**	
 	* SETTERS
 	*/
-
 	public function setId($id)
 	{
 		$this->_id = (int) $id;
@@ -99,7 +98,6 @@ class Reservation {
 	/**	
 	* GETTERS - pour récupérer la valeur des attributs
 	*/ 
-
 	public function getErrors()
 	{
 		return $this->_errors;
@@ -136,7 +134,6 @@ class Reservation {
     }
 
     //FONCTIONS
-
     public function dateConvert($month) {
 		switch ($month) {
 		    case 'Janvier':
@@ -178,10 +175,7 @@ class Reservation {
 		}
 	}	
 
-	/**
-	* Méthode permettant de savoir si la réservation est valide.
-	* @return bool
-	*/
+	//permet de savoir si la réservation est valide
 	public function isValid()
 	{
 		return !(

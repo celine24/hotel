@@ -8,9 +8,7 @@ class Session
             $_email,
             $_connected;
 
-    /**
-     * Si l'utilisateur est connecté, le constructeur récupère les données
-     */
+    //Si l'utilisateur est connecté, le constructeur récupère les données
     public function __construct()
     {
         if (isset($_SESSION['user'])) 
@@ -27,10 +25,7 @@ class Session
         }
     }
 
-    /**
-     * Permet de se déconnecter
-     * @return bool
-     */
+    //Permet de se déconnecter
     public function logout()
     {
         if ($this->isConnected()) {
@@ -40,14 +35,10 @@ class Session
         }
         return true;
     }
-    /**
-     * @return boolean
-     */
     
     /**
      * GETTERS
      */
-
     public function getId()
     {
         return $this->_id;
@@ -76,7 +67,6 @@ class Session
     /**
      * SETTERS
      */
-
     public function setId($id)
     {
         $this->_id = $id;
