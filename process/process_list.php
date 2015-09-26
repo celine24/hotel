@@ -27,9 +27,7 @@ if(isset($_POST['reserve'])) {
 		//si la réservation a réussi : 
 		if ($add_reservation === true) 
 		{
-			$hotelId = $reservation->getHotelId();
-			$hotel = $manager->getHotel($hotelId);
-			$success_msg =  'Félicitations ! Votre réservation dans l\'hôtel <b>' . $hotel[0]['name'] . '</b> à <b>' . $hotel[0]['city_name'] . '</b> a bien été prise en compte. La <b>chambre n°' . $reservationManager->addRoom($reservation) . '</b> vous sera attribuée pour la période demandée.';
+			$success_msg =  'Félicitations ! Votre réservation a bien été prise en compte.';
 		}
 		else 
 		{

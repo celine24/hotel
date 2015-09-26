@@ -70,8 +70,8 @@ $user_session = new Session();
             <?php if($user_session->isConnected()) : ?>
             <li><a href="index.php?log=false">Déconnexion</a></li>
             <?php else :?>
-              <li><a href="connection.php">S'identifier</a></li>
-              <li><a href="registration.php">S'enregistrer</a></li>
+              <li <?php if ($_SERVER['SCRIPT_NAME'] == "/hotel/view/pages/connection.php") {echo "class='active'";} ?>><a href="connection.php">S'identifier</a></li>
+              <li <?php if ($_SERVER['SCRIPT_NAME'] == "/hotel/view/pages/registration.php") {echo "class='active'";} ?>><a href="registration.php">S'enregistrer</a></li>
             <?php endif; ?>
           </ul>
         </div>
